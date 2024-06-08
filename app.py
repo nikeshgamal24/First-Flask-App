@@ -49,3 +49,14 @@ def get_users():
         return make_response(jsonify({"users":[user.json for user in users]}),201)
     except  e:
         return make_response(jsonify({"message":"Error getting users"}),400)
+    
+#get user by id route
+@app.route('/user/<int:id>',method=['GET'])
+def get_users():
+    try:
+        user = User.query.filter_by(id=id).first()
+        if user:
+            return make_response(jsonify({"user":user}),200)
+        return make_response(jsonify({"message":"user not found"}),404)
+    except  e:
+        return make_response(jsonify({"message":"Error getting users"}),400)
